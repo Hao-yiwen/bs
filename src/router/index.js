@@ -16,7 +16,7 @@ const router = new VueRouter({
   routes
 })
 
-// 挂在导航守卫 
+// 挂载导航守卫 
 // from从哪儿来 to到哪儿去 next放行函数
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
