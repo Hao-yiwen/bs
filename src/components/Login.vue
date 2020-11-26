@@ -96,21 +96,30 @@ export default {
         if (!valid) {
           let arr = Object.keys(field);
           // 拿到未通过验证的验证规则提示
-          return this.$message.error(field[arr[0]][0].message);
+          return this.$message.error({
+            message: field[arr[0]][0].message,
+            duration: 1000,
+          });
         }
 
         let { data: result } = await this.$http.post("login", this.loginForm);
         // 登录失败
         if (result.meta.status !== 200) {
-          return this.$message.error(result.meta.msg);
+          return this.$message.error({
+            message: result.meta.msg,
+            duration: 1000,
+          });
         }
 
         // 登录成功
-        this.$message.success('登录成功！')
+        this.$message.success({
+          message: "登录成功！",
+          duration: 1000,
+        });
         // 保存token
-        window.sessionStorage.setItem('token',result.data.token)
+        window.sessionStorage.setItem("token", result.data.token);
         // 跳转到首页
-        this.$router.push('/home')
+        this.$router.push("/home");
       });
     },
   },
