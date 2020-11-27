@@ -12,24 +12,12 @@
       <!-- 搜素与添加区域 -->
       <el-row :gutter="20">
         <el-col :span="7">
-          <el-input
-            placeholder="请输入内容"
-            v-model="queryInfo.query"
-            clearable
-            @clear="getUserList"
-            @keyup.native.enter="getUserList"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="getUserList"
-            ></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList" @keyup.native.enter="getUserList">
+            <el-button slot="append" icon="el-icon-search" @click="getUserList" ></el-button> 
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true"
-            >添加用户</el-button
-          >
+          <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
         </el-col>
       </el-row>
 
@@ -53,12 +41,12 @@
         <el-table-column label="操作" width="180px">
           <template v-slot="scope">
             <!-- 修改按钮 -->
-            <el-button size="mini" plain round type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.id)"></el-button>
+            <el-button size="mini" round type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.id)"></el-button>
             <!-- 删除按钮 -->
-            <el-button size="mini" plain round type="danger" icon="el-icon-delete" @click="removUserById(scope.row.id)"></el-button> 
+            <el-button size="mini" round type="danger" icon="el-icon-delete" @click="removUserById(scope.row.id)"></el-button> 
             <!-- 分配角色按钮 -->
             <el-tooltip effect="dark" content="分配角色" :enterable="false" placement="top">
-              <el-button size="mini" plain round type="warning" icon="el-icon-setting"></el-button>
+              <el-button size="mini" round type="warning" icon="el-icon-setting"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>

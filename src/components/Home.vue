@@ -27,6 +27,7 @@
           active-text-color="#409EFF"
           :router="true"
           :default-active="activePath"
+          :unique-opened="true"
         >
           <!-- 一级菜单 -->
           <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
@@ -39,12 +40,7 @@
             </template>
 
             <!-- 二级菜单 -->
-            <el-menu-item
-              :index="'/'+subItem.path"
-              v-for="subItem in item.children"
-              :key="subItem.id"
-              @click="saveNavState('/'+subItem.path) "
-            >
+            <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/'+subItem.path) ">
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
