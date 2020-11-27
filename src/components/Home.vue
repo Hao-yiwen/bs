@@ -9,36 +9,57 @@
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
+
     <!-- 页面主体区域 -->
     <el-container>
-      <!-- 侧边栏 -->
-      <el-aside width="200px">
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF">
+      <!-- 侧边栏菜单 -->
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <!-- 切换按钮 -->
+        <div class="toggle-button" @click="toggleCollapse()">
+          {{ isCollapse ? "&rArr;" : "&lArr;" }}
+        </div>
+
+        <el-menu
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          :router="true"
+          :default-active="activePath"
+        >
           <!-- 一级菜单 -->
-          <el-submenu :index="item.id + ''" v-for="(item) in menuList" :key="item.id">
+          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
             <!-- 一级菜单模板区域 -->
             <template slot="title">
               <!-- 图标 -->
               <i :class="iconsObj[item.id]"></i>
               <!-- 文本 -->
-              <span>{{item.authName}}</span>
+              <span>{{ item.authName }}</span>
             </template>
 
             <!-- 二级菜单 -->
-            <el-menu-item :index="sonItem.id + ''" v-for="sonItem in item.children" :key="sonItem.id">
+            <el-menu-item
+              :index="'/'+subItem.path"
+              v-for="subItem in item.children"
+              :key="subItem.id"
+              @click="saveNavState('/'+subItem.path) "
+            >
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
                 <!-- 文本 -->
-                <span>{{sonItem.authName}}</span>
+                <span>{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
-
           </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 右侧内容主体 -->
-      <el-main>Main</el-main>
+      <el-main>
+        <!-- 匹配到的子路由 -->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -50,18 +71,23 @@ export default {
     return {
       // 左侧菜单数据
       menuList: [],
-      // 
-      iconsObj:{
-        '125':'iconfont icon-user',
-        '103':'iconfont icon-tijikongjian',
-        '101':'iconfont icon-shangpin',
-        '102':'iconfont icon-danju',
-        '145':'iconfont icon-baobiao'
-      }
+      //
+      iconsObj: {
+        125: "iconfont icon-user",
+        103: "iconfont icon-tijikongjian",
+        101: "iconfont icon-shangpin",
+        102: "iconfont icon-danju",
+        145: "iconfont icon-baobiao",
+      },
+      //控制左侧边栏的切换状态
+      isCollapse: false,
+      // 被激活的链接地址
+      activePath:null
     };
   },
   created() {
     this.getMenuList();
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     // 退出
@@ -86,8 +112,17 @@ export default {
       }
 
       this.menuList = res.data;
-      console.log(this.menuList);
     },
+    // 点击按钮切换菜单的折叠与咱开
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse;
+    },
+    // 保存链接的激活状态
+    saveNavState(activePath){
+      window.sessionStorage.setItem('activePath',activePath)
+      // 点击过后就赋值，不然只有组件被创建的时候状态才会更改
+      this.activePath = activePath
+    }
   },
 };
 </script>
@@ -114,8 +149,8 @@ export default {
       margin-left: 20px;
     }
     img {
-      width: 60px;
-      height: 60px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       margin-right: 20px;
     }
@@ -127,7 +162,20 @@ export default {
 .el-main {
   background-color: #eaedf1;
 }
-.iconfont{
+.el-menu {
+  border-right: none;
+}
+.iconfont {
   margin-right: 10px;
+}
+.toggle-button {
+  background-color: #4a5064;
+  color: white;
+  font-size: 22px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  user-select: none;
 }
 </style>
