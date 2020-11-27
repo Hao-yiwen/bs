@@ -8,7 +8,6 @@ import Vue from 'vue'
 // import "nprogress/nprogress.css" 
 
 axios.defaults.baseURL = `http://120.53.120.229:8888/api/private/v1/`
-// axios.defaults.baseURL = `https://www.liulongbin.top:8888/api/private/v1/`
 
 // 添加 请求头 和 进度条 NProgress.start()
 axios.interceptors.request.use(config => {
