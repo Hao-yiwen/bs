@@ -9,7 +9,7 @@ import './assets/css/global.css'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
 
-
+// 导入已配置好的依赖 axios
 import './network/axios'
 
 Vue.config.productionTip = false
