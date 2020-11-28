@@ -3,7 +3,7 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="~/assets/images/my-logo.png" alt="" />
+        <img src="~/assets/images/3.png" alt="" />
         <span>优乐购电商后台管理系统</span>
         <span id="version">Version：1.2.0</span>
       </div>
