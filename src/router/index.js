@@ -9,6 +9,8 @@ import Users from "components/user/Users.vue"
 // 权限管理
 import Rights from "components/power/Rights.vue"
 import Roles from "components/power/Roles.vue"
+// 商品管理
+import Categories from "components/goods/Categories.vue"
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,7 @@ const routes = [
       { path: '/users', component: Users },
       { path: '/rights', component: Rights },
       { path: '/roles', component: Roles },
+      { path: '/categories', component: Categories },
     ]
   }
 ]

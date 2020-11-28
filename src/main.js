@@ -12,6 +12,10 @@ import './assets/fonts/iconfont.css'
 // 导入已配置好的依赖 axios
 import './network/axios'
 
+// 树形组件
+import TreeTable from "vue-table-with-tree-grid"
+Vue.component('tree-table',TreeTable)
+
 Vue.config.productionTip = false
 
 new Vue({
