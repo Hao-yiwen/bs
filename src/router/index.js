@@ -16,6 +16,8 @@ import List from "components/goods/List.vue"
 import AddGoods from "components/goods/AddGoods.vue"
 // 订单管理
 import Order from "components/order/Order.vue"
+// 数据统计
+import Report from "components/report/Report.vue"
 
 
 Vue.use(VueRouter)
@@ -37,6 +39,7 @@ const routes = [
       { path: '/goods', component: List},
       { path: '/goods/add', component: AddGoods},
       { path: '/orders', component: Order},
+      { path: '/reports', component: Report},
     ]
   }
 ]
