@@ -27,3 +27,6 @@ body,
 .zk-table__cell-inner {
   font-size: 14px;
 }
+.ql-editor{
+  min-height: 300px;
+}

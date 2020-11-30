@@ -22,7 +22,7 @@
 
       <!-- table表格区域 -->
       <el-table :data="goodsList" border stripe style="width: 100%">
-        <!-- 咱开行 -->
+        <!-- 展开行 -->
         <el-table-column type="expand">
           <template scope="props">
             <!-- {{scope.row}} -->
@@ -40,7 +40,8 @@
                 <span>{{ props.row.goods_weight }}</span>
               </el-form-item>
               <el-form-item label="商品状态">
-                <span>{{ props.row.goods_state }}</span>
+                <!-- <span>{{ props.row.goods_state }}</span> -->
+                <span>已审核</span>
               </el-form-item>
               <el-form-item label="添加时间">
                 <span>{{ props.row.add_time | dateFormat }}</span>
@@ -108,7 +109,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editGoodsDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editGoodsDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="editGoodsInfo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -218,7 +219,6 @@ export default {
     },
     // 点击编辑商品按钮
     async editGoods(goodsInfo){
-      console.log(goodsInfo);
       const {data:res} = await this.$http.get('goods/'+goodsInfo.goods_id)
       // 查询数据失败
       if(res.meta.status !== 200){
@@ -235,6 +235,35 @@ export default {
     // 编辑对话框关闭
     editDialogClose(){
       this.$refs.editFormRef.resetFields()
+    },
+    // 确定编辑商品信息
+    editGoodsInfo(){
+      this.$refs.editFormRef.validate(async (valid,options) =>{
+        // 表单验证未通过
+        if(!valid){
+          let arr = Object.keys(options)
+          return this.$message.error({
+            message: options[arr[0]][0].message,
+            duration: 1500
+          })
+        }
+        console.log(this.editForm);
+        const {data:res} = await this.$http.put('goods/'+this.editForm.goods_id,this.editForm)
+        // 修改失败
+        if (res.meta.status !== 200) {
+          return this.$message.error({
+            message: res.meta.msg,
+            duration: 1500,
+          });
+        }
+
+        this.$message.success({
+          message:'修改成功！',
+          duration: 1500
+        })
+        this.getGoodsList()
+        this.editGoodsDialogVisible = false
+      })
     }
   },
 };
