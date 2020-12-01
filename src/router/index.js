@@ -25,9 +25,9 @@ const List = () => import(/* webpackChunkName: "goods" */ "components/goods/List
 const AddGoods = () => import(/* webpackChunkName: "goods" */ "components/goods/AddGoods.vue")
 
 // 订单管理
-const Order = () => import(/* webpackChunkName: "order_Report" */ "components/goods/AddGoods.vue")
+const Order = () => import(/* webpackChunkName: "order_Report" */ "components/order/Order.vue")
 // 数据统计
-const Report = () => import(/* webpackChunkName: "order_Report" */ "components/goods/AddGoods.vue")
+const Report = () => import(/* webpackChunkName: "order_Report" */ "components/report/Report.vue")
 
 
 

@@ -81,6 +81,15 @@ export default {
       },
     };
   },
+  created(){
+    this.$notify({
+      title: '欢迎您',
+      message: '初始用户名：admin </br> 初始密码：123456',
+      type: 'success',
+      duration: 0,
+      dangerouslyUseHTMLString:true
+    });
+  },
   methods: {
     // 点击重置按钮，重置表单数据和验证规则
     resetLoginForm() {
