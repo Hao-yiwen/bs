@@ -24,20 +24,20 @@
       <!-- expand-type 是否为展开行类型-->
       <tree-table :data="cateList" :columns="columns" :selection-type="false" :expand-type="false" show-index index-text="#" :show-row-hover="false" border>
         <!-- 是否有效 -->
-        <template slot="isok" scope="scope">
+        <template slot="isok" slot-scope="scope">
           <i v-if="scope.row.cat_deleted === false" class="el-icon-success" style="color: lightgreen; font-size: 22px"></i>
           <i v-else class="el-icon-error" style="color: red; font-size: 22px"></i>
         </template>
 
         <!-- 排序 -->
-        <template slot="order" scope="scope">
+        <template slot="order" slot-scope="scope">
           <el-tag effect="dark" v-if="scope.row.cat_level === 0" type="primaruy" >一级</el-tag>
           <el-tag effect="dark" v-else-if="scope.row.cat_level === 1" type="success">二级</el-tag>
           <el-tag effect="dark" v-else type="warning">三级</el-tag>
         </template>
 
         <!-- 操作 -->
-        <template slot="opt" scope="scope">
+        <template slot="opt" slot-scope="scope">
           <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDiealog(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeCateByID(scope.row)">删除</el-button>
         </template>

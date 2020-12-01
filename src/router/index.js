@@ -1,23 +1,34 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from "components/Login.vue"
-import Home from 'components/Home.vue'
-import Welcome from "components/Welcome.vue"
+// 普通方式
+// import Login from "components/Login.vue"
+// import Home from 'components/Home.vue'
+// import Welcome from "components/Welcome.vue"
+
+// 懒加载: 登录——主页——欢迎页
+const Login = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Login.vue")
+const Home = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Home.vue")
+const Welcome = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Welcome.vue")
+
 // 用户管理
-import Users from "components/user/Users.vue"
+const Users = () => import(/* webpackChunkName: "users" */ "components/user/Users.vue")
+
 // 权限管理
-import Rights from "components/power/Rights.vue"
-import Roles from "components/power/Roles.vue"
+const RightsList = () => import(/* webpackChunkName: "rights" */ "components/power/Rights.vue")
+const RolesList = () => import(/* webpackChunkName: "rights" */ "components/power/Roles.vue")
+
 // 商品管理
-import Categories from "components/goods/Categories.vue"
-import Params from "components/goods/Params.vue"
-import List from "components/goods/List.vue"
-import AddGoods from "components/goods/AddGoods.vue"
+const Categories = () => import(/* webpackChunkName: "goods" */ "components/goods/Categories.vue")
+const Params = () => import(/* webpackChunkName: "goods" */ "components/goods/Params.vue")
+const List = () => import(/* webpackChunkName: "goods" */ "components/goods/List.vue")
+const AddGoods = () => import(/* webpackChunkName: "goods" */ "components/goods/AddGoods.vue")
+
 // 订单管理
-import Order from "components/order/Order.vue"
+const Order = () => import(/* webpackChunkName: "order_Report" */ "components/goods/AddGoods.vue")
 // 数据统计
-import Report from "components/report/Report.vue"
+const Report = () => import(/* webpackChunkName: "order_Report" */ "components/goods/AddGoods.vue")
+
 
 
 Vue.use(VueRouter)
@@ -32,8 +43,8 @@ const routes = [
     children: [
       { path: '/welcome', component: Welcome },
       { path: '/users', component: Users },
-      { path: '/rights', component: Rights },
-      { path: '/roles', component: Roles },
+      { path: '/rights', component: RightsList },
+      { path: '/roles', component: RolesList },
       { path: '/categories', component: Categories },
       { path: '/params', component: Params },
       { path: '/goods', component: List},

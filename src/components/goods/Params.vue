@@ -33,7 +33,7 @@
           <el-table :data="manyTabData" border stripe>
             <!-- 展开行 -->
             <el-table-column type='expand'>
-              <template scope="scope">
+              <template slot-scope="scope">
                 <!-- 循环渲染tag标签 -->
                 <el-tag class="el-tag-params" v-for="(item,index) in scope.row.attr_vals" :key="item.attr_id" closable @close="handleClose(scope.row,index)">{{item}}</el-tag>
 
@@ -55,7 +55,7 @@
             <el-table-column type='index' label="#"></el-table-column>
             <el-table-column label="参数名称" prop="attr_name"></el-table-column>
             <el-table-column label="操作">
-              <template  scope="scope">                  
+              <template  slot-scope="scope">                  
                 <el-button size="small" round type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.attr_id)">编辑</el-button>
                 <el-button size="small" round type="danger" icon="el-icon-delete" @click="removeParams(scope.row)">删除</el-button>
               </template>
@@ -69,7 +69,7 @@
           <el-table :data="onlyTabData" border stripe>
             <!-- 展开行 -->
             <el-table-column type='expand'>
-              <template scope="scope">
+              <template slot-scope="scope">
                 <!-- 循环渲染tag标签 -->
                 <el-tag class="el-tag-params" v-for="(item,index) in scope.row.attr_vals" :key="item.attr_id" closable @close="handleClose(scope.row,index)">{{item}}</el-tag>
 
@@ -91,7 +91,7 @@
             <el-table-column type='index' label="#"></el-table-column>
             <el-table-column label="属性名称" prop="attr_name"></el-table-column>
             <el-table-column label="操作">
-              <template  scope="scope">                  
+              <template  slot-scope="scope">                  
                 <el-button size="small" round type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.attr_id)">编辑</el-button>
                 <el-button size="small" round type="danger" icon="el-icon-delete" @click="removeParams(scope.row)">删除</el-button>
               </template>

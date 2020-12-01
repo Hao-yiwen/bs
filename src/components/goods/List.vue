@@ -24,7 +24,7 @@
       <el-table :data="goodsList" border stripe style="width: 100%">
         <!-- 展开行 -->
         <el-table-column type="expand">
-          <template scope="props">
+          <template slot-scope="props">
             <!-- {{scope.row}} -->
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="商品名称">
@@ -64,10 +64,10 @@
         <el-table-column label="商品价格(元)" prop="goods_price" width="105px"></el-table-column>
         <el-table-column label="商品重量(克)" prop="goods_weight" width="105px"></el-table-column>
         <el-table-column label="创建时间" prop="add_time" width="165px">
-          <template scope="scope">{{scope.row.add_time | dateFormat}}</template>
+          <template slot-scope="scope">{{scope.row.add_time | dateFormat}}</template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="180px">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-button size="small" type="primary" icon="el-icon-edit" @click="editGoods(scope.row)">编辑</el-button>
             <el-button size="small" type="danger" icon="el-icon-delete" @click="removeById(scope.row)">删除</el-button>
           </template>
