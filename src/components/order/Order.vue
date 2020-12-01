@@ -23,14 +23,14 @@
         <el-table-column label="订单编号" prop="order_number"></el-table-column>
         <el-table-column label="订单价格" prop="order_price"></el-table-column>
         <el-table-column label="是否付款" prop="pay_status">
-          <template scope="props">
+          <template slot-scope="props">
             <el-tag v-if="props.row.pay_status == '1'" type="success">已付款</el-tag>
             <el-tag v-else type="danger">未付款</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send"></el-table-column>
         <el-table-column label="下单时间" prop="create_time">
-          <template scope="props">{{props.row.create_time | dateFormat}}</template>
+          <template slot-scope="props">{{props.row.create_time | dateFormat}}</template>
         </el-table-column>
         <el-table-column label="操作">
           <template>
@@ -60,7 +60,7 @@
     <el-dialog title="修改地址" :visible.sync="addressVisible" width="40%" @close="addressDialogClose"> 
       <el-form :model="addressForm" :rules="addressFormRules" ref="addressFormRef" label-width="100px">
         <el-form-item label="省市区县" prop="address1">
-          <el-cascader :options="cityData" v-model="addressForm.address1"></el-cascader>
+          <el-cascader :options="cityData" v-model="addressForm.address1" :props="{expandTrigger: 'hover'}"></el-cascader>
         </el-form-item>
         <el-form-item label="详细地址" prop="address2">
           <el-input v-model="addressForm.address2"></el-input>
