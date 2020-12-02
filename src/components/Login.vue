@@ -86,8 +86,8 @@ export default {
       title: '欢迎您',
       message: '初始用户名：admin </br> 初始密码：123456',
       type: 'success',
-      duration: 0,
-      dangerouslyUseHTMLString:true
+      dangerouslyUseHTMLString:true,
+      duration: 5000
     });
   },
   methods: {
