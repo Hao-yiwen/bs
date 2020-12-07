@@ -79,16 +79,23 @@ export default {
           },
         ],
       },
+      // 消息框
+      notify: null,
     };
   },
-  created(){
-    this.$notify({
-      title: '欢迎您',
-      message: '初始用户名：admin </br> 初始密码：123456',
-      type: 'success',
-      dangerouslyUseHTMLString:true,
-      duration: 5000
+  created() {
+    this.notify = this.$notify({
+      title: "欢迎您",
+      message: "初始用户名：admin </br> 初始密码：123456",
+      type: "success",
+      dangerouslyUseHTMLString: true,
+      offset: 100,
+      duration: 5000,
     });
+  },
+  destroyed() {
+    // 组件销毁时关闭提示框
+    this.notify.close()
   },
   methods: {
     // 点击重置按钮，重置表单数据和验证规则

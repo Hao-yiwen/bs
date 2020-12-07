@@ -32,8 +32,8 @@
         <el-table-column label="下单时间" prop="create_time">
           <template slot-scope="props">{{props.row.create_time | dateFormat}}</template>
         </el-table-column>
-        <el-table-column label="操作">
-          <template>
+        <el-table-column label="操作" width="180px">
+          <template v-slot="scope">
             <el-tooltip content="修改地址" :enterable="false" placement="top">
               <el-button size="small" round type="primary" icon="el-icon-edit" @click="showBox"></el-button>
             </el-tooltip>
