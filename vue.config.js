@@ -1,4 +1,8 @@
 module.exports = {
+  devServer: {
+    open: true,
+    port: 9998
+  },
   configureWebpack: {
     resolve: {
       alias: {
@@ -29,7 +33,7 @@ module.exports = {
       })
       // 在 public下的 index.html 中可以通过 以下命令拿到当前设置的值
       // <%= htmlWebpackPlugin.options.isProd ? '' : 'dev-'%>
-      config.plugin('html').tap(args =>{
+      config.plugin('html').tap(args => {
         args[0].isProd = true
         return args
       })
@@ -37,7 +41,7 @@ module.exports = {
 
     // 开发模式
     config.when(process.env.NODE_ENV === 'development', cofnig => {
-      config.plugin('html').tap(args =>{
+      config.plugin('html').tap(args => {
         args[0].isProd = false
         return args
       })

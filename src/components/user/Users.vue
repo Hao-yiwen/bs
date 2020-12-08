@@ -444,7 +444,8 @@ export default {
       this.selectedRoleId = ''
       // 清空当前分配角色的数据列表
       this.userInfo = {}
-    }
+    },
+
   },
 };
 </script>

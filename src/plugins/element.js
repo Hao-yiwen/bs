@@ -39,7 +39,10 @@ import {
   Upload,
   Timeline,
   TimelineItem,
-  Notification
+  Notification,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -79,6 +82,12 @@ Vue.use(CheckboxGroup)
 Vue.use(Upload)
 Vue.use(Timeline)
 Vue.use(TimelineItem)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+
+
+
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

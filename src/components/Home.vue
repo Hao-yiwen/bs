@@ -7,7 +7,23 @@
         <span>优乐购电商后台管理系统</span>
         <span id="version">Version：1.2.0</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <!-- <el-button type="info" @click="logout">退出</el-button> -->
+      <div>
+        <full-screen />
+        <el-dropdown trigger="click">
+          <span class="el-dropdown-link d-flex">
+            <img id="user-avatar" src="~assets/images/avatar.gif" alt="" />
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="toggleRouter">WelCome</el-dropdown-item>
+            <a target="_blank" href="https://gitee.com/penggang-home/shopping-system">
+              <el-dropdown-item>Gitee</el-dropdown-item>
+            </a>
+            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-header>
 
     <!-- 页面主体区域 -->
@@ -16,7 +32,7 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <!-- 切换按钮 -->
         <div class="toggle-button" @click="toggleCollapse()">
-          {{ isCollapse ? "&rArr;" : "&lArr;" }}
+          {{ isCollapse ? '&rArr;' : '&lArr;' }}
         </div>
 
         <el-menu
@@ -29,6 +45,10 @@
           :default-active="activePath"
           :unique-opened="true"
         >
+          <el-menu-item index="/welcome">
+            <i class="el-icon-menu"></i>
+            <span slot="title">欢迎页面</span>
+          </el-menu-item>
           <!-- 一级菜单 -->
           <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
             <!-- 一级菜单模板区域 -->
@@ -40,7 +60,7 @@
             </template>
 
             <!-- 二级菜单 -->
-            <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/'+subItem.path) ">
+            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id">
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
@@ -61,66 +81,75 @@
 </template>
 
 <script>
+import FullScreen from 'components/common/FullScreen'
+
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       // 左侧菜单数据
       menuList: [],
       //
       iconsObj: {
-        125: "iconfont icon-user",
-        103: "iconfont icon-tijikongjian",
-        101: "iconfont icon-shangpin",
-        102: "iconfont icon-danju",
-        145: "iconfont icon-baobiao",
+        125: 'iconfont icon-user',
+        103: 'iconfont icon-tijikongjian',
+        101: 'iconfont icon-shangpin',
+        102: 'iconfont icon-danju',
+        145: 'iconfont icon-baobiao',
       },
       //控制左侧边栏的切换状态
       isCollapse: false,
       // 被激活的链接地址
-      activePath:null
-    };
+      activePath: '/welcome',
+    }
+  },
+  components: {
+    FullScreen,
   },
   created() {
-    this.getMenuList();
-    this.activePath = window.sessionStorage.getItem('activePath')
+    this.getMenuList()
+  },
+  watch: {
+    // 监听路由的变化
+    $route: {
+      handler(val, oldVal) {
+        this.activePath = val.path
+      },
+      // 深度观察监听
+      deep: true,
+    },
   },
   methods: {
     // 退出
     logout() {
-      window.sessionStorage.clear();
-      this.$message.success({
-        message: "退出成功",
-        duration: 1000,
-      });
-      this.$router.push("/login");
+      window.sessionStorage.clear()
+
+      this.$router.push('/login')
     },
     // 获取左侧菜单列表
     async getMenuList() {
-      const { data: res } = await this.$http.get("menus");
+      const { data: res } = await this.$http.get('menus')
 
       // 获取失败
       if (res.meta.status !== 200) {
         return this.$message({
           message: res.meta.msg,
           duration: 1000,
-        });
+        })
       }
 
-      this.menuList = res.data;
+      this.menuList = res.data
     },
     // 点击按钮切换菜单的折叠与咱开
     toggleCollapse() {
-      this.isCollapse = !this.isCollapse;
+      this.isCollapse = !this.isCollapse
     },
-    // 保存链接的激活状态
-    saveNavState(activePath){
-      window.sessionStorage.setItem('activePath',activePath)
-      // 点击过后就赋值，不然只有组件被创建的时候状态才会更改
-      this.activePath = activePath
-    }
+    // 跳转到欢迎页面
+    toggleRouter() {
+      this.$router.push('/welcome')
+    },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -173,5 +202,19 @@ export default {
   letter-spacing: 0.1em;
   cursor: pointer;
   user-select: none;
+}
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#user-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  margin-right: 0;
+}
+a {
+  text-decoration: none;
 }
 </style>

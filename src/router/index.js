@@ -47,13 +47,15 @@ const routes = [
       { path: '/roles', component: RolesList },
       { path: '/categories', component: Categories },
       { path: '/params', component: Params },
-      { path: '/goods', component: List},
-      { path: '/goods/add', component: AddGoods},
-      { path: '/orders', component: Order},
-      { path: '/reports', component: Report},
+      { path: '/goods', component: List },
+      { path: '/goods/add', component: AddGoods },
+      { path: '/orders', component: Order },
+      { path: '/reports', component: Report },
     ]
   }
 ]
+
+
 
 const router = new VueRouter({
   // mode: 'history',
@@ -70,8 +72,18 @@ router.beforeEach((to, from, next) => {
     console.log('请登录');
     return next('/login')
   }
-
+  console.log(to);
+  console.log(from);
+  if (to.path === from.path) return ''
+  console.log('下来了');
   next()
 })
+
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 
 export default router
