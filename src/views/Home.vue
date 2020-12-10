@@ -3,7 +3,7 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="~/assets/images/3.png" alt="" />
+        <img src="~/assets/images/logo.svg" alt="" />
         <span>优乐购电商后台管理系统</span>
         <span id="version">Version：1.2.0</span>
       </div>
@@ -39,6 +39,7 @@
           :collapse="isCollapse"
           :collapse-transition="false"
           background-color="#333744"
+          ref="elMenuRef"
           text-color="#fff"
           active-text-color="#409EFF"
           :router="true"
@@ -46,11 +47,12 @@
           :unique-opened="true"
         >
           <el-menu-item index="/welcome">
-            <i class="el-icon-menu"></i>
-            <span slot="title">欢迎页面</span>
+            <i class="iconfont icon-home3"></i>
+            <span slot="title">首页</span>
           </el-menu-item>
+
           <!-- 一级菜单 -->
-          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
+          <el-submenu id="custom" :index="item.id + ''" v-for="item in menuList" :key="item.id">
             <!-- 一级菜单模板区域 -->
             <template slot="title">
               <!-- 图标 -->
@@ -69,6 +71,11 @@
               </template>
             </el-menu-item>
           </el-submenu>
+          <el-menu-item index="/dataview">
+            <i class="iconfont icon-baobiao"></i>
+            <span slot="title">数据视图</span>
+            <i class="el-submenu__icon-arrow icon-share"></i>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <!-- 右侧内容主体 -->
@@ -95,12 +102,14 @@ export default {
         103: 'iconfont icon-tijikongjian',
         101: 'iconfont icon-shangpin',
         102: 'iconfont icon-danju',
-        145: 'iconfont icon-baobiao',
+        145: 'iconfont icon-baobiao', //数据统计模块的icon
       },
       //控制左侧边栏的切换状态
       isCollapse: false,
       // 被激活的链接地址
       activePath: '/welcome',
+      // 需要关闭的左侧菜单id
+      menusId: [],
     }
   },
   components: {
@@ -114,6 +123,10 @@ export default {
     $route: {
       handler(val, oldVal) {
         this.activePath = val.path
+        this.menusId.forEach(item => {
+          // 关闭所有左侧菜单
+          this.$refs.elMenuRef.closeMenu(item + '')
+        })
       },
       // 深度观察监听
       deep: true,
@@ -137,8 +150,12 @@ export default {
           duration: 1000,
         })
       }
-
       this.menuList = res.data
+      // 删除掉数据统计模块
+      this.menuList.pop()
+      this.menuList.forEach(item => {
+        this.menusId.push(item.id)
+      })
     },
     // 点击按钮切换菜单的折叠与咱开
     toggleCollapse() {
@@ -185,6 +202,7 @@ export default {
   background-color: #333744;
 }
 .el-main {
+  position: relative;
   background-color: #eaedf1;
 }
 .el-menu {

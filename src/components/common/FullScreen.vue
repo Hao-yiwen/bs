@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="screenfull-svg" src="~assets/images/fullscreen.svg" @click="click" />
+    <span :class="['screenfull-svg',isFullscreen ? 'icon-shrink':'icon-enlarge']" @click="click"></span>
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default {
   fill: #5a5e66;
   width: 20px;
   height: 20px;
-  vertical-align: 10px;
+  // vertical-align: 10px;
   margin-right: 15px;
 }
 </style>

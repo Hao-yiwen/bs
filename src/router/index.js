@@ -7,9 +7,9 @@ import VueRouter from 'vue-router'
 // import Welcome from "components/Welcome.vue"
 
 // 懒加载: 登录——主页——欢迎页
-const Login = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Login.vue")
-const Home = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Home.vue")
-const Welcome = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/Welcome.vue")
+const Login = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Login.vue")
+const Home = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Home.vue")
+const Welcome = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Welcome.vue")
 
 // 用户管理
 const Users = () => import(/* webpackChunkName: "users" */ "components/user/Users.vue")
@@ -26,9 +26,9 @@ const AddGoods = () => import(/* webpackChunkName: "goods" */ "components/goods/
 
 // 订单管理
 const Order = () => import(/* webpackChunkName: "order_Report" */ "components/order/Order.vue")
-// 数据统计
-const Report = () => import(/* webpackChunkName: "order_Report" */ "components/report/Report.vue")
 
+// 数据可视化
+const DataView = () => import(/* webpackChunkName: "order_Report" */ "views/DataView.vue")
 
 
 Vue.use(VueRouter)
@@ -50,8 +50,11 @@ const routes = [
       { path: '/goods', component: List },
       { path: '/goods/add', component: AddGoods },
       { path: '/orders', component: Order },
-      { path: '/reports', component: Report },
     ]
+  },
+  {
+    path: '/dataview',
+    component: DataView
   }
 ]
 
