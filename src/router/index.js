@@ -9,7 +9,7 @@ import VueRouter from 'vue-router'
 // 懒加载: 登录——主页——欢迎页
 const Login = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Login.vue")
 const Home = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Home.vue")
-const Welcome = () => import(/* webpackChunkName: "login_Home_Welcome" */ "views/Welcome.vue")
+const Welcome = () => import(/* webpackChunkName: "login_Home_Welcome" */ "components/welcome")
 
 // 用户管理
 const Users = () => import(/* webpackChunkName: "users" */ "components/user/Users.vue")

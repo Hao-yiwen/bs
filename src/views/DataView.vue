@@ -8,7 +8,7 @@
         <a :style="titleColor" target="_blank">返回</a>
         <span class="icon-enter"></span>
       </span>
-      <span class="title">电商平台实时监控系统</span>
+      <span class="title">后台实时监控系统</span>
       <div class="title-right">
         <full-screen></full-screen>
         <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme" alt="切换主题" title="切换主题" />

@@ -24,9 +24,6 @@ axios.interceptors.response.use(config => {
   return config
 })
 
-// const axiosInstance = axios.create({
-//   baseURL:'http://localhost:9997'
-// })
+
 
 Vue.prototype.$http = axios
-// Vue.prototype.$httpInstance = axiosInstance

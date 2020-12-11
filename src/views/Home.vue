@@ -48,7 +48,7 @@
         >
           <el-menu-item index="/welcome">
             <i class="iconfont icon-home3"></i>
-            <span slot="title">首页</span>
+            <span slot="title">WelCome</span>
           </el-menu-item>
 
           <!-- 一级菜单 -->
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import FullScreen from 'components/common/FullScreen'
+import FullScreen from 'components/common/FullScreen/'
 
 export default {
   name: 'Home',
