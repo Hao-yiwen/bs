@@ -9,7 +9,7 @@ import './plugins/element.js'
 // 导入全局样式表
 import './assets/css/global.css'
 // 导入字体图标
-import './assets/fonts/style.css'
+import './assets/fonts/iconfont.css'
 
 // 导入已配置好的依赖 axios
 import './network/axios'
