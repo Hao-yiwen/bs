@@ -72,13 +72,12 @@ router.beforeEach((to, from, next) => {
 
   const tokenStr = window.sessionStorage.getItem('token')
   if (!tokenStr) {
-    console.log('请登录');
+    Vue.prototype.$message({
+      type:'info',
+      message:'小伙子,请登录',
+    })
     return next('/login')
   }
-  console.log(to);
-  console.log(from);
-  if (to.path === from.path) return ''
-  console.log('下来了');
   next()
 })
 

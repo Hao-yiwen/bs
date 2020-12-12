@@ -28,6 +28,7 @@
             type="password"
             v-model="loginForm.password"
             prefix-icon="iconfont icon-3702mima"
+            show-password
           ></el-input>
         </el-form-item>
 
