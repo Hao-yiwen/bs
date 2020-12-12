@@ -43,7 +43,7 @@ export default {
   },
   created() {
     this.axiosInstance = axios.create({
-      baseURL:'http://120.53.120.229:9997'
+      baseURL:'http://120.53.120.229:8997'
     })
     this.$socket.registerCallBack('mapData', this.getData)
   },
@@ -63,6 +63,7 @@ export default {
   destroyed() {
     window.removeEventListener('resize', this.screenAdapter)
     this.$socket.unRegisterCallBack('stockData')
+    this.chartInstance.dispose()
   },
   methods: {
     // 初始化图表的方法

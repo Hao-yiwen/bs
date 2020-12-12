@@ -69,6 +69,7 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
     this.$socket.unRegisterCallBack('sellerData')
     this.timerId && clearInterval(this.timerId)
+    this.chartInstance.dispose()
   },
   methods: {
     // 初始化 echartsInstance 对象

@@ -93,6 +93,7 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
     // 销毁注册的事件
     this.$socket.unRegisterCallBack('trendData')
+    this.chartInstance.dispose()
   },
   methods: {
     // 初始化图表的方法

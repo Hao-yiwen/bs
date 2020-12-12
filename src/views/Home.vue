@@ -5,9 +5,8 @@
       <div>
         <img src="~/assets/images/logo.svg" alt="" />
         <span>优乐购电商后台管理系统</span>
-        <span id="version">Version：1.2.0</span>
+        <span id="version">Version：1.3.0</span>
       </div>
-      <!-- <el-button type="info" @click="logout">退出</el-button> -->
       <div>
         <full-screen />
         <el-dropdown trigger="click">
@@ -20,6 +19,10 @@
             <a target="_blank" href="https://gitee.com/penggang-home/shopping-system">
               <el-dropdown-item>Gitee</el-dropdown-item>
             </a>
+            <a href="http://120.53.120.229:1920/#/login" target="_blank">
+              <el-dropdown-item>V: 1.2.0</el-dropdown-item>
+            </a>
+
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

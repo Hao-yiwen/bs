@@ -74,6 +74,7 @@ export default {
   destroyed() {
     window.removeEventListener('resize', this.screenAdapter)
     this.$socket.unRegisterCallBack('hotData')
+    this.chartInstance.dispose()
   },
   methods: {
     // 初始化图表的方法

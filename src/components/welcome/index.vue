@@ -42,20 +42,46 @@ export default {
       // 折线图数据
       lineData: [
         {
+          title: '2020年访问量一览',
           legendData: ['真实访问量', '预估访问量'],
           xData: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           // 真实数据
           realData: [1500, 2800, 900, 1000, 800, 700, 1400, 1300, 900, 1000, 800, 600],
           // 推测数据
           guessData: [1200, 1400, 1800, 2500, 800, 700, 900, 1000, 800, 600, 2000, 2400],
+          icon: '',
         },
         {
+          title: '昨日访问量一览',
           legendData: ['真实访问量', '预估访问量'],
+          xData: ['0:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '24:00'],
+          // 真实数据
+          realData: [150, 280, 90, 100, 80, 70, 140, 130, 90, 100, 420, 60, 120],
+          // 推测数据
+          guessData: [120, 140, 180, 250, 80, 70, 90, 100, 80, 60, 200, 240, 140],
+          icon: '',
+        },
+        {
+          title: '2020年总成交量',
+          legendData: ['真实成交量', '预估成交量'],
           xData: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           // 真实数据
-          realData: [150, 280, 90, 100, 80, 70, 140, 130, 90, 100, 800, 60],
+          realData: [85418, 95123, 58203, 48415, 48502, 54312, 48561, 18432, 105210, 91062, 104813, 84510],
           // 推测数据
-          guessData: [120, 140, 180, 250, 80, 70, 90, 100, 80, 60, 200, 240],
+          guessData: [75418, 85123, 68203, 68415, 38502, 64312, 41561, 11432, 85210, 71062, 114813, 89510],
+          // icon
+          icon: '￥',
+        },
+        {
+          title: '昨日成交量',
+          legendData: ['真实成交量', '预估成交量'],
+          xData: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          // 真实数据
+          realData: [2418, 3023, 4823, 5815, 6502, 7312, 4525, 8432, 5010, 3106, 8510, 6500],
+          // 推测数据
+          guessData: [1418, 2023, 3823, 6815, 7502, 6312, 4500, 5532, 6610, 4106, 8910, 7483],
+          // icon
+          icon: '￥',
         },
       ],
       activeLine: 0,
@@ -69,27 +95,25 @@ export default {
         },
         {
           icon: 'icon-user',
-          title: '今日访问量',
+          title: '昨日访问量',
           data: null,
           color: '#36A3F7',
         },
         {
           icon: 'icon-cart',
           title: '总成交量',
-          data: '45018￥',
+          data: '1025018￥',
           color: '#F4516C',
         },
         {
           icon: 'icon-checkmark',
-          title: '今日成交量',
-          data: '1523￥',
+          title: '昨日成交量',
+          data: '2253￥',
           color: '#34BFA3',
         },
       ],
       // axios实例对象
       axiosInstance: null,
-      // 城市信息
-      cityInfo: null,
       // 折线图信息
       lineInfo: null,
       // 用于设置鼠标悬停在card上的高亮
@@ -100,18 +124,29 @@ export default {
       fontColor: {},
     }
   },
-  created() {
-    this.getCityInfo()
+  destroyed() {
+    this.chartInstance.dispose()
+  },
+  async created() {
+    this.getCityInfo().then(
+      res => {
+        this.getData(res)
+      },
+      err => {
+        this.getData(err)
+      }
+    )
+
     this.axiosInstance = axios.create({
-      baseURL: 'http://localhost:9997',
+      // baseURL: 'http://localhost:8997',
+      // 使用服务器地址
+      baseURL: 'http://120.53.120.229:8997',
     })
   },
   mounted() {
     this.$nextTick(() => {
       // 初始化图表
       this.initChart()
-      // 获取数据
-      this.getData()
     })
   },
   methods: {
@@ -122,7 +157,7 @@ export default {
       // 初始化图表的配置项
       const initOption = {
         title: {
-          text: '近期访问量',
+          text: currentData.title,
           textStyle: {
             fontSize: '28',
           },
@@ -162,13 +197,32 @@ export default {
         },
         series: [
           {
-            name: '真实访问量',
+            name: currentData.legendData[0],
             smooth: true,
             type: 'line',
             animationDuration: 2800,
             data: currentData.realData,
             animationEasing: 'quadraticOut',
-            // data: y2,
+            markPoint: {
+              // 最大最小值的相关配置
+              label: {
+                show: true,
+                formatter: '{c}' + currentData.icon,
+              },
+              data: [
+                {
+                  type: 'max',
+                  name: '最大值',
+                },
+                {
+                  type: 'min',
+                  name: '最小值',
+                },
+              ],
+
+              animationDuration: 2800,
+              animationEasing: 'quadraticOut',
+            },
             itemStyle: {
               normal: {
                 color: '#3888fa',
@@ -183,13 +237,31 @@ export default {
             },
           },
           {
-            name: '预估访问量',
+            name: currentData.legendData[1],
             smooth: true,
             type: 'line',
             animationDuration: 2800,
             data: currentData.guessData,
             animationEasing: 'cubicInOut',
-            // data: yDataArr,
+            markPoint: {
+              // 最大最小值的相关配置
+              label: {
+                show: true,
+                formatter: '{c}' + currentData.icon,
+              },
+              data: [
+                {
+                  type: 'max',
+                  name: '最大值',
+                },
+                {
+                  type: 'min',
+                  name: '最小值',
+                },
+              ],
+              animationDuration: 2800,
+              animationEasing: 'quadraticOut',
+            },
             itemStyle: {
               normal: {
                 color: '#FF005A',
@@ -210,42 +282,25 @@ export default {
       //实例化城市查询类
       var citysearch = new AMap.CitySearch()
       //自动获取用户IP，返回当前城市
-      this.cityInfo = citysearch.getLocalCity(async function (status, result) {
-        if (status === 'complete' && result.info === 'OK') {
-          if (result && result.city) {
-            return result.city
+      return new Promise((resolve, reject) => {
+        citysearch.getLocalCity(async function (status, result) {
+          if (status === 'complete' && result.info === 'OK') {
+            if (result && result.city) {
+              resolve(result.city)
+            }
           }
-        }
-        return '未知'
+          reject('未知')
+        })
       })
     },
     // 把用户城市信息发送给服务器并 获取总访问量和今日访问量
-    async getData() {
-      const { data: res } = await this.axiosInstance.get('/')
+    async getData(city) {
+      const { data: res } = await this.axiosInstance.get('/?methods=userInfo&city='+city)
       this.lineInfo = res
-      this.cardData[0].data = this.lineInfo.totalPv + '次'
-      this.cardData[1].data = this.lineInfo.todayPv + '次'
-    },
-    // 更新图表配置项
-    updateChart() {
-      let currentData = this.lineData[this.activeLine]
-      const dataOption = {
-        legend: {
-          data: currentData.legendData,
-        },
-        xAxis: {
-          data: currentData.xData,
-        },
-        series: [
-          {
-            data: currentData.realData,
-          },
-          {
-            data: currentData.guessData,
-          },
-        ],
-      }
-      this.chartInstance.setOption(dataOption)
+      // this.cardData[0].data = this.lineInfo.totalPv + '次'
+      // this.cardData[1].data = this.lineInfo.todayPv + '次'
+      this.cardData[0].data = 4018153 + '次'
+      this.cardData[1].data = 21523 + '次'
     },
     // 鼠标经过card该变对应样式
     change(color, index) {
@@ -256,9 +311,7 @@ export default {
     },
     // 改变图表显示的数据
     changeLine(index) {
-
       this.activeLine = index
-      console.log('初始化');
       this.chartInstance.dispose()
       this.initChart()
     },

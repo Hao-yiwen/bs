@@ -27,10 +27,9 @@ export default class SocketService {
     // 连接服务器
     if (!window.WebSocket) return console.log('您的浏览器不支持 WebSocket');
 
-    // this.ws = new WebSocket('ws://localhost:9998')
-
+    // this.ws = new WebSocket('ws://localhost:8998')
     // 使用接口地址
-    this.ws = new WebSocket('ws://120.53.120.229:9998')
+    this.ws = new WebSocket('ws://120.53.120.229:8998')
 
 
     // 连接成功的事件

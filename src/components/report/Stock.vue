@@ -74,6 +74,7 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
     clearInterval(this.timerId)
     this.$socket.unRegisterCallBack('stockData')
+    this.chartInstance.dispose()
   },
   methods: {
     // 初始化图表的方法

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './plugins/element.js' //CDN
+// import echarts from 'echarts' //CDN
+// import './plugins/element.js' //CDN
 
 
 // 导入全局样式表
@@ -20,6 +21,19 @@ Vue.component('tree-table',TreeTable)
 // 导入富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
 Vue.use(VueQuillEditor, /* { default global options } */)
+
+// 引入 socket_service
+import SocketService from './utils/socket_service'
+// 对服务端进行 webSocket的连接
+SocketService.Instance.connect()
+Vue.prototype.$socket = SocketService.Instance
+
+// 把echarts挂载到 Vue原型上，以便在全局访问
+Vue.prototype.$echarts = echarts
+// 引入主题
+import './assets/lib/theme/chalk'
+import './assets/lib/theme/vintage'
+import './assets/lib/theme/westeros'
 
 // 定义全局时间过滤器
 Vue.filter('dateFormat',function (originVal){
