@@ -6,7 +6,7 @@
 
 ## 电商数据可视化服务器 [预览](https://gitee.com/penggang-home/koa_server)
 
-## API接口文档 [预览](./api接口文档.md)
+## API接口文档 [预览](。/../API接口文档.md)
 
 ## 数据库文件 [点击下载SQL文件](https://gitee.com/penggang-home/vue_shop_api_server/tree/master/db)
 如何运行该项目？

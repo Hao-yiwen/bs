@@ -8,6 +8,7 @@
         <span id="version">Version：1.3.0</span>
       </div>
       <div>
+        <div id="user-name">欢迎您：amdin</div>
         <full-screen />
         <el-dropdown trigger="click">
           <span class="el-dropdown-link d-flex">
@@ -154,10 +155,11 @@ export default {
         })
       }
       this.menuList = res.data
-      // 删除掉数据统计模块
-      this.menuList.pop()
-      this.menuList.forEach(item => {
+      // 过滤掉数据统计模块
+      this.menuList = this.menuList.filter(item => {
+        // 把每个菜单的id保存到一个数组中，切换的时候要用到
         this.menusId.push(item.id)
+        return item.authName != '数据统计'
       })
     },
     // 点击按钮切换菜单的折叠与咱开
@@ -237,5 +239,10 @@ export default {
 }
 a {
   text-decoration: none;
+}
+#user-name{
+  font-weight: normal;
+  margin-right: 25px;
+  font-size: 20px;
 }
 </style>

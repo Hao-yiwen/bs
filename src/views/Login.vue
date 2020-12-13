@@ -127,7 +127,7 @@ export default {
             duration: 1000,
           });
         }
-
+        console.log(result);
         // 登录成功
         this.$message.success({
           message: "登录成功！",
